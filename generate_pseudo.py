@@ -28,6 +28,7 @@ import cv2
 import torch.backends.cudnn as cudnn
 import random
 from utils.metrics import *
+import os.path as osp
 
 bceloss = torch.nn.BCELoss()
 seed = 3377
@@ -214,6 +215,9 @@ if __name__ == '__main__':
                 centroid_1_bck_dic[img_name[i]] = centroid_1_bck
                 prob_dic[img_name[i]] = prob[i]
 
+    if not osp.exists('./generate_pseudo'):
+        os.mkdir('./generate_pseudo')
+    
     if args.dataset=="Domain3":
         np.savez('./generate_pseudo/pseudolabel_D3', pseudo_label_dic, uncertain_dic, proto_pseudo_dic, prob_dic,
                          distance_0_obj_dic, distance_0_bck_dic, distance_1_obj_dic, distance_1_bck_dic,

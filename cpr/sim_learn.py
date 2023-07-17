@@ -45,6 +45,7 @@ import networks.deeplabv3_eval as netd_eval
 from tool import pyutils
 
 from torch.utils.tensorboard import SummaryWriter
+import os.path as osp
 
 
 if __name__ == '__main__':
@@ -228,6 +229,9 @@ if __name__ == '__main__':
         avg_meter_disc.pop()        
         
         model.train()
+
+    if not osp.exists('./log'):
+        os.mkdir('./log')
 
     torch.save({
                 'model_state_dict': model.state_dict(),
